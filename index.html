@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>残酷压榨</title>
+</head>
+
+<body>
+  <div class="main">
+    <div class="active">
+      <img class="pic" src="illust_112969924_20231030_150430.png">
+      <p>
+        22世纪毫无疑问是所有我国公民的乌托邦，在这里，所有的公民享受几乎免费的医疗和教育，即便是最底层的公民也能获取充足的衣物和食物等消费品。<br><br>当然，这不是因为生产力的提高，只是所有的男性都被从公民的范畴中去除了，这些被称之为奴隶的男性终其一生在暗无天日的矿场和工厂中劳作，
+        工作得来的微薄报酬也会被庞大的女性公务员体系以及国家规定的贡主剥削掉。<br><br>而你，正是男性的一员。
+      </p>
+      <div class="money">你有1000元</div>
+      <a href="javascript:">呜呜呜...</a>
+      <div class="but">
+        <button>挖矿</button>
+        <p class="hour">你工作了0小时</p>
+        <p class="day">你工作了0天</p>
+        <p class="sala">你挣到了0元</p>
+      </div>
+    </div>
+    <script>
+      let i = 0;
+      let j = 0;
+      let sala = 0;
+      let money = 1000;
+
+
+      const url = document.querySelector('.pic');
+      const text = document.querySelector('.active p');
+      const aaa = document.querySelector('a');
+      const butt = document.querySelector('.but')
+      const bu = document.querySelector('.but button')
+      const showmoney = document.querySelector('.money')
+      const showhour = document.querySelector('.but .hour')
+      const showday = document.querySelector('.but .day')
+      const showsala = document.querySelector('.but .sala')
+      const pageDate = [
+        { id: 1, url: 'illust_112969924_20231030_150430.png', text: '1111111', aaa: '1', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 2, url: 'illust_112969924_20231030_150430.png', text: '你18岁，刚刚被调到首都的矿场工作，你有些庆幸，因为越是富裕的地方生活条件便越好。\n\n按照国家的法律，18岁之后你就要作为私人贡奴分配给这个国家的公民，也就是女性，既有可能是30多岁的少妇，也有可能是10多岁的少女。\n\n你当然希望你的贡主是年轻一点的少女，她们的花销相对来说更小一些，而且跟自己年龄更加相近，一定不会狠毒的压榨自己的吧？', aaa: '呜呜呜...', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 3, url: 'illust_112969924_20231030_150430.png', text: '总之先试着开始工作吧，赚不到钱的话会毫不留情的被抛弃呢，看到这个按钮了吗，点击一次意味着你工作了30分钟，怎么样，很轻松吧？先试着工作一天', aaa: '', aa: '我工作完了...', but: 1, timelimit: 1, workday: 1, gongzi: 20 },
+        { id: 4, url: 'illust_112969924_20231030_150430.png', text: '做的好哦，辛苦工作了一天呢，一天是16下，一个月也就是480下，是为了让你充分感受到工作的辛苦特意设定的哦。\n\n提前说明一下规则，游戏里你的工资是每天结算的，除了面对你主人的压榨之外，说不定还有各种各样的人残酷的剥削你❤，劳烦各位替我们努力工作啦～\n\n', aaa: '开始游戏', aa: '我工作完了...', but: 0, timelimit: 2, workday: 5, gongzi: 20 },
+        { id: 5, url: 'illust_112969924_20231030_150430.png', text: '初次见面～\n\n你就是我的贡奴嘛，噗～没想到是同龄人来着，还以为会是个大叔呢。\n\n欸～为什么？因为印象里贡奴就是社会底层的邋遢大叔欸，在矿井中不知疲倦的给我们工作到死这样。\n\n明明是同龄人，我们女孩子去享受义务教育的时候，你却来做贡奴了欸\n\n要不要跟老师申请换一个贡奴呢～', aaa: '我比大叔更能挣钱！', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 6, url: 'illust_112969924_20231030_150430.png', text: '嘻嘻～真的嘛\n\n那就先试用一下你咯，不过，要是你没有通过试用期的话~\n\n听说被抛弃的贡奴会被视为罪犯一辈子都在监狱的矿场劳作了~嘻嘻~\n\n不要指望我可怜你哦，这可关乎到我的生活费欸，你要是不能挣钱我就买不了想要的衣服和鞋子了呢。', aaa: '我会努力的...呜呜', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 7, url: 'illust_112969924_20231030_150430.png', text: '你每天的工资是？\n\n咦，一个小时只有20吗？女性找工作的最低工资标准都是每小时50块钱呢。\n\n不过，抱歉啦~妈妈说有了贡奴之后就不再给我生活费了，所以呢，我的生活费都要从你这里“获取”呢\n\n那么，下个月月初的时候给我4000吧？如果做得到的话我就允许你做我的贡奴哦~', aaa: '4000...可我一个月8小时工作不休息工资也才4000多', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 8, url: 'illust_112969924_20231030_150430.png', text: '我知道哦，我特意算好的呢，只要你每天坚持工作八个小时而且全月无休，你就能挣到4800块钱呢。\n\n而且~是我让你去工作的吧？那你的工资，4000归我，800归你，很公平对吧❤~嘻嘻\n\n', aaa: '公平滴很呐...', aa: '我工作完了...', but: 0, timelimit: 8, workday: 1, gongzi: 20 },
+        { id: 9, url: 'illust_112969924_20231030_150430.png', text: '嗯，那你去工作吧。\n\n至少...至少告诉我你的名字...\n\n咦？我的名字？不需要吧，我和你的接触只有每个月你给我上贡的日子，乖乖当我的提款机就好了。\n\n', aaa: '', aa: '我工作完了...', but: 1, timelimit: 8, workday: 30, gongzi: 20 },
+
+      ]
+
+      aaa.onclick = function () {
+        showhour.innerHTML = '你工作了' + j + '小时'
+        showday.innerHTML = '你工作了' + day + '天'
+        showsala.innerHTML = '你的工资是' + sala + '元'
+        i++
+        url.src = pageDate[i].url
+        text.innerText = pageDate[i].text
+        aaa.innerText = pageDate[i].aaa
+
+        let but = pageDate[i].but
+
+
+        if (but == 0) {
+          butt.style.display = 'none'
+          bu.style.display = 'none'
+        }
+        else {
+          butt.style.display = 'block'
+          bu.style.display = 'block'
+        }
+      }
+
+      let day = 0;
+      let month = 0
+      bu.onclick = function () {
+        j = j + 0.5//一次半个小时
+        showhour.innerHTML = '你工作了' + j + '小时'
+        if (j >= pageDate[i].timelimit) {
+          day++
+          sala = sala + pageDate[i].gongzi * j
+          money = money + pageDate[i].gongzi * j
+          showmoney.innerHTML = '你有' + money + '元'
+          showday.innerHTML = '你工作了' + day + '天'
+          showsala.innerHTML = '你的工资是' + sala + '元'
+          j = 0
+
+          if (day % 30 == 0) {
+            month++
+          }
+          if (day >= pageDate[i].workday) {
+            day = 0
+            sala = 0
+            aaa.innerHTML = pageDate[i].aa
+            bu.style.display = 'none'
+          }
+        }
+
+      }
+    </script>
+</body>
+<style>
+  body {
+    background-color: #413c3c;
+    color: rgb(255, 255, 255);
+  }
+
+  .active a {
+    color: aqua;
+    margin-left: 5vw;
+
+  }
+
+  .pic {
+    width: 70vw;
+    margin-left: 15vw;
+  }
+
+  div {
+    display: block;
+  }
+
+  .main {
+    display: block;
+  }
+
+  p {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+
+  .money {
+    margin-left: 5vw;
+    margin-bottom: 3vw;
+    color: rgb(212, 0, 255);
+  }
+
+  .but {
+    display: none;
+
+  }
+
+
+  .but button {
+    margin-left: 5vw;
+    border-radius: 5px;
+    width: 20vw;
+    height: 10vw;
+  }
+</style>
+
+</html>
